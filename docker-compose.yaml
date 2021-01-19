@@ -39,6 +39,9 @@ services:
     tty: true
     links:
       - db
+    ports:
+      - 8080:8080
+    command: go run ./api/server.go
     volumes:
       - ./backend:/go/src/app
       - api_go_modules:/go/pkg/mod

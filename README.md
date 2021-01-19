@@ -23,12 +23,24 @@ docker-compose exec api /bin/bash
 go run main.go
 ```
 
-### generate code
+### generate code by schema.graphql
 
-1. Add any file to `backend/view/model/`. (ex: `food.go`)
+1. Write `graphql/schema.graphql`.
 2. Execute the following command
 
 ```sh
 cd backend
-go generate ./...
+go run github.com/99designs/gqlgen
+```
+
+#### No Edit files
+
+- backend/api/graph/exec.go
+- backend/view/model/models_gen.go
+
+### install or update dependencies modules
+
+```
+go get [module-name] // Install module.
+go mod tidy // Delete unused modules.
 ```

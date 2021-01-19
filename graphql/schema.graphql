@@ -1,0 +1,69 @@
+"""
+ユーザー
+"""
+type User {
+  """
+  ID
+  """
+  id: ID!
+
+  """
+  名前
+  """
+  name: String!
+}
+
+"""
+投稿
+"""
+type Post {
+  """
+  ID
+  """
+  id: ID!
+
+  """
+  タイトル
+  """
+  title: String!
+
+  """
+  投稿者
+  """
+  author: User!
+}
+
+"""
+クエリ一覧
+"""
+type Query {
+  """
+  ユーザー一覧
+  """
+  users: [User!]!
+
+  """
+  投稿一覧
+  """
+  posts: [Post!]!
+}
+
+"""
+ポスト作成引数
+"""
+input NewPost {
+  """
+  タイトル
+  """
+  title: String!
+}
+
+"""
+ミューテーション一覧
+"""
+type Mutation {
+  """
+  投稿作成
+  """
+  createPost(input: NewPost!): Post!
+}
