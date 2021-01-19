@@ -15,15 +15,9 @@ type Resolver struct {
 }
 
 func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
-	sugahara := &model.User{
-		ID:   fmt.Sprintf("T%d", rand.Int()),
-		Name: "菅原 拓朗",
-	}
-
 	post := &model.Post{
-		ID:     fmt.Sprintf("T%d", rand.Int()),
-		Title:  input.Title,
-		Author: sugahara,
+		ID:    fmt.Sprintf("T%d", rand.Int()),
+		Title: input.Title,
 	}
 	r.posts = append(r.posts, post)
 	return post, nil
@@ -50,6 +44,7 @@ func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
+func (r *Resolver) Post() PostResolver   { return &postResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }

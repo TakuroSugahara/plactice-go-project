@@ -7,21 +7,3 @@ type NewPost struct {
 	// タイトル
 	Title string `json:"title"`
 }
-
-// 投稿
-type Post struct {
-	// ID
-	ID string `json:"id"`
-	// タイトル
-	Title string `json:"title"`
-	// 投稿者
-	Author *User `json:"author"`
-}
-
-// ユーザー
-type User struct {
-	// ID
-	ID string `json:"id"`
-	// 名前
-	Name string `json:"name"`
-}
