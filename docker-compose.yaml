@@ -8,7 +8,13 @@ services:
     build:
       context: ./migrate
       dockerfile: Dockerfile
-    command: -url="jdbc:postgresql://db:5432/sample?sslmode=disable" -user="postgres" -password="password" -connectRetries=60 migrate
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: sample
+    command: -url="jdbc:postgresql://db:5432/sample?sslmode=disable" -user="postgres" -password="password" -connectRetries=60
     links:
       - db
     volumes:
@@ -23,3 +29,21 @@ services:
     # command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    tty: true
+    links:
+      - db
+    volumes:
+      - ./backend:/go/src/app
+      - api_go_modules:/go/pkg/mod
+volumes:
+  db-data:
+    driver: local
+  api_go_modules:
+    driver: local
